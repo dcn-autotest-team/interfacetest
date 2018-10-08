@@ -20,7 +20,7 @@ def change(matched):
     # 注意group("num")中num要有“”包裹起来
     num = matched.group("num")  # 通过小名num取到具体的值，其实也可以用默认的int类型的1取到值(但是不pythonic)
     return '_'+str(num).zfill(3)+'_'  # zfill用法见上，刚好此处只需加0所以用zfill，如果复杂例如填充其他字符！@#￥等就要
-    #用到format或者%或者（f‘{}’ python3.5还是3.6之后新语法忘记了）进行格式化输出，如果更复杂那就要设计类重写__format__方法
+    #用到format或者%或者（f‘{}’）进行格式化输出，如果更复杂那就要设计类重写__format__方法
 
 os.chdir(dst) # 进入到dst方便后面os.rename的时候不用管路径前缀，只关心具体的文件名称    
 for i in os.scandir(dst):
