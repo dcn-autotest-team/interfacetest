@@ -1,0 +1,65 @@
+---
+# 接口函数名称到对应请求接口url的映射
+# 用户(组)相关接口
+# 用户的单位调出
+call_out_user_unit: unitOut
+  # 获取迁出公共组用户
+get_out_public_group_user: user/publicUser
+  # 用户账号批量导入
+batch_import_user_accouts: init/batchImport
+  # 用户帐号批量导出
+batch_export_user_accouts: user/export
+  # 用户登入操作
+login_user: user/login
+  # 用户登出操作
+logout_user: user/logout
+  # 创建新用户
+create_user: user
+  # 更新单个用户
+update_single_user: user/:user
+  # 删除单个用户
+delete_single_user: user/:user
+  # 查询指定单个用户
+search_single_user: user/:user
+  # 按条件分页获取机构下的用户信息
+get_user_under_organization_by_conditional_paging: orgUsers
+  # 批量更新用户
+batch_update_user: user/batch
+  # 批量删除用户
+batch_delete_user: user/delete
+  # 获取当前登录用户登录方式接口
+get_login_mode_for_current_user: loginstatus
+  # 密码修改接口
+change_password: user/password
+  # 获取机构下的分组信息
+get_group_under_organization: org/:org/group
+  # 创建单个组织机构分组
+create_single_organization_group: group
+  # 更新单个分组
+update_single_group: group/:group
+  # 删除单个分组
+delete_single_group: group/:group
+  # 批量删除用户组
+batch_delete_user_group: group/delete
+  # 组织机构用户组批量操作
+batch_organization_user_group: group/groupOpers
+  # 按条件分页获取用户组下的用户信息
+get_user_under_usergroup_by_conditional_paging: userGroupUsers
+# 组织机构相关接口
+  # 当前登录用户组织机构展示树
+get_user_organization_display_tree: orgsTree
+
+# --------------------自服务相关接口映射-------------------------
+change_user_info: user/changeUserInfo
+
+# --------------------系统初始化相关接口映射----------------------
+#检查系统是否已经被初始化
+check_system_initial_state: init/check
+#初始化根节点接口
+init_root_org: init/initRootOrg
+#初始化设置根节点名称和网络参数
+init_root_org_net: init/initRootOrgAndNet
+#获取用户是否隐藏使用向导接口
+get_guide: init/getGuide
+#设置用户是否隐藏使用向导接口
+set_guide: init/setGuide

@@ -1,0 +1,53 @@
+---
+# 创建新用户账号数据信息
+super_admin:
+    name: 超级管理员
+    account: &saa admin
+    password: &sap 12345678
+    email:
+    phone:
+    status: 0
+    role: 2
+    position:
+    group: 0
+    org: 1
+
+common_admin:
+    name: 普通管理员
+    account: &caa common_admin
+    password: &cap 12345678
+    email: common_admin@digitalchina.com
+    phone: 13006104202
+    status: 0
+    role: 1
+    position:
+    group: 0
+    org: 1
+
+common_user:
+  name: 普通用户
+  account: &cua common_user
+  password: &cup 12345678
+  email: common_user@digitalchina.com
+  phone: 13006104201
+  status: 0
+  role: 0
+  position:
+  group: 0
+  org: 1
+
+# 账号登陆接口模型
+login_user:
+  account:
+  password:
+#  --------------
+login_super_admin:
+  account: *saa
+  password: *sap
+login_common_admin:
+  account: *caa
+  password: *cap
+login_common_user:
+  account: *cua
+  password: *cup
+# 账号

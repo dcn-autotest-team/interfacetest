@@ -1,0 +1,41 @@
+check_system_initial_state:
+  inited:
+    initialized:
+     value: true
+     desc: 系统已经被初始化
+    uninitialized:
+     value: false
+     desc: 系统未被初始化
+
+init_root_org:
+  request:
+    rootOrgName:
+
+  response:
+    status:
+      success:
+        value: 0
+        desc: 初始化设置根节点名称成功
+    # 如果成功，返回根机构节点ID
+    result:
+
+init_root_org_net:
+  request:
+    rootOrgName: |
+      from faker import Faker
+      f=Faker()
+      print(f.name())
+    ip: {fake_ip}
+    gate: {fake_gate}
+    mask: {fake_mask}
+    dns1: {fake_dns}
+
+  response:
+    status:
+      success:
+        value: 0
+        desc: 初始化设置根节点名称和网络参数成功
+      system_error:
+        value: 3
+        desc: 系统异常，请联系管理员
+    message:

@@ -1,0 +1,10 @@
+---
+# 个人信息及密码修改接口数据模型
+change_user_info:
+  id:
+  name:
+  account:
+  phone:
+  email:
+  code:
+  newPw:
