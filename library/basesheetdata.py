@@ -20,9 +20,12 @@
 
 
 class OperationExcel:
+    """Operate Excel"""
     def __init__(self, file_name, sheet_name):
         """
-        根据输入的excel和sheet名称来找到所需要测试的文件，提供了文件内容读取的方法。
+        + 说明：
+            根据输入的excel和sheet名称来找到所需要测试的文件，提供了文件内容读取的方法。
+
         :param file_name: 测试使用的excel文件名称
         :param sheet_name: 测试使用的excel文件中的sheet名称
         """
@@ -116,7 +119,7 @@ class OperationExcel:
         return method
 
     @property
-    def get_statuscode(self):  # need fix
+    def get_status_code(self):  # need fix
         """
         :return: 获取sheet表中每行的响应参数
         """
@@ -125,7 +128,7 @@ class OperationExcel:
             status_code.append(self.get_sheet.cell_value(i, 6))
         return status_code
 
-    get_status_code = get_statuscode
+    get_statuscode = get_status_code
 
     @property
     def get_code(self):
@@ -142,7 +145,22 @@ class OperationExcel:
         """
         :return: 获取sheet表中每行的错误检查点
         """
-        errorcode = []
+        error_code = []
         for i in range(1, self.get_rows):
-            errorcode.append(self.get_sheet.cell_value(i, 8))
-        return errorcode
+            error_code.append(self.get_sheet.cell_value(i, 8))
+        return error_code
+
+    sheets = get_sheet
+    error_codes = get_error_code
+    codes = get_code
+    status_codes = get_status_code
+    methods = get_method
+    data = get_date
+    urls = get_url
+    preconditions = get_precondition
+    names = get_name
+    seqs = get_seq
+    rows = get_rows
+    cols = get_col
+
+OperateExcel = OperationExcel

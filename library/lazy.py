@@ -17,6 +17,10 @@
 #       - 2018/9/22 10:39  add by yanwh
 #
 # *********************************************************************
+"""
+    + 模块说明：
+        提供延迟属性，后期进行扩展
+"""
 import operator
 
 
@@ -35,10 +39,14 @@ _missing = _MissingObject()
 class LazyProperty(property):
     def __init__(self, name=None, doc=None, readable=True, settable=False, **kwargs):
         """
+        + 说明：
+            延迟记载运算的类的属性
+
         :param name: 用户自定义访问和设置的属性名称
         :param doc: 被装饰的函数的doc或者指定doc
         :param readable: 设置被装饰属性是否可读
         :param settable: 设置被装饰的属性是否可写
+
         """
         self.__name__ = name
         self.__doc__ = doc
@@ -49,9 +57,11 @@ class LazyProperty(property):
 
     def __call__(self, method=None, **kwargs):
         """
+
         :param method: 被装饰的类方法名称
         :param kwargs: 指定fget和fset fdel doc，跟property保持一致
         :return: self
+
         """
         self.__name__ = self.__name__ or (method.__name__ if callable(method) else None)
         self.__doc__ = self.__doc__ or (method.__doc__ if callable(method) else None)
@@ -62,6 +72,7 @@ class LazyProperty(property):
 
     def __get__(self, *args, **kwargs):  # 本来应该撰写成def __get__(self, instance, owner)为了通过pycharm检查才写成这样
         """
+
         :param args: 为了或者被装饰类的实例instance
         :param kwargs: None
         :return: 要访问的属性值
@@ -85,8 +96,9 @@ class LazyProperty(property):
             instance.__dict__[self.__name__] = result
         return result
 
-    def __set__(self, instance, value: 'value to set'):
+    def __set__(self, instance, value):
         """
+
         :param instance: 被装饰的类的instance
         :param value: 要设置的值
         :return: None
@@ -103,7 +115,9 @@ class LazyProperty(property):
 
     def setter(self, fset):
         """
-        同property
+        + 说明：
+            用法参见python内置的property
+
         :param fset: fset函数
         :return: self
         """
@@ -112,7 +126,9 @@ class LazyProperty(property):
 
     def getter(self, fget):
         """
-        同property
+        + 说明：
+            用法参见python内置的property
+
         :param fget: fget函数
         :return: self
         """
@@ -121,82 +137,6 @@ class LazyProperty(property):
 
 
 lazy_property = LazyProperty
-
-
-class _TestLazyProperty:
-    """
-    >>> tlp=_TestLazyProperty(123)
-    >>> tlp.a
-    123
-    >>> tlp.a=1
-    Traceback (most recent call last):
-      File "<input>", line 1, in <module>
-      File "<input>", line 79, in __set__
-    AttributeError: can't set attribute
-    >>> tlp.aa = 110
-    >>> tlp.a
-    123
-    >>> tlp.aa
-    123
-    >>> tlp.a=111
-    Traceback (most recent call last):
-      File "<input>", line 1, in <module>
-      File "<input>", line 79, in __set__
-    AttributeError: can't set attribute
-    >>> tlp.__dict__
-    {'_x': 110, '_y': 123}
-    >>> tlp.b
-    110
-    >>> tlp.b=111
-    >>> tlp.b
-    111
-    >>> tlp.c
-    Traceback (most recent call last):
-      File "<input>", line 1, in <module>
-      File "<input>", line 61, in __get__
-    AttributeError: can't get attribute
-    >>> tlp.cc
-    220
-    >>> tlp.xx
-    110
-    >>> tlp.xx=1
-    >>> tlp.xx
-    1
-    >>> tlp.__dict__
-    {'_x': 1, '_y': 123, 'b': 111, 'c': 220}
-    """
-
-    def __init__(self, x):
-        self._x = x
-
-    @lazy_property(name='_y')
-    def a(self):
-        return self._x
-
-    @a.setter
-    def aa(self, value):
-        self._x = value
-
-    @lazy_property(settable=True)
-    def b(self):
-        return self._x
-
-    @lazy_property(readable=False)
-    def c(self):
-        return self._x
-
-    @c.getter
-    def cc(self):
-        return self._x * 2
-
-    def d(self):
-        return self._x
-
-    def e(self, value):
-        self._x = value
-
-    xx = lazy_property(name='_x', fget=d, fset=e, fdel=lambda self: None, doc=None)
-
 
 empty = object()
 
@@ -210,6 +150,7 @@ def new_method_proxy(func):
     return inner
 
 
+# noinspection PyPropertyAccess
 class LazyObject(object):
     """
     用于继承与它的子类可以延迟进行初始化，从而用于改变子类的行为

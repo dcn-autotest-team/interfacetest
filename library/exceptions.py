@@ -17,6 +17,10 @@
 #       - 2018/8/15 13:21  add by yanwh
 #
 # *********************************************************************
+"""
++ 模块说明：
+    自定义异常类
+"""
 
 
 class DcnFailure(Exception):
@@ -89,7 +93,9 @@ class TestcaseNotFound(NotFoundError):
 
 class SingletonError(DcnError, ValueError):
     """
-    单例模式初始化参数不得修改
+    说明：如果一个类的元类为单例类，或者类被单例模式装饰器装饰的前提条件下，该类一旦被初始化（__init__（x,y））后
+    ，后面再次实例化类__init__(a,b)的时候会触发SingletonError，除非依旧为__init__(a,b)，异常提示信息为
+    [单例模式错误]: {msg}.
     """
 
     def __init__(self, msg=''):
@@ -99,8 +105,8 @@ class SingletonError(DcnError, ValueError):
 
 class ConstError(DcnError):
     """
-    常量异常类
-    """
+    说明 如果常量变量名不为大写，或者常量名定义之后被修改的情况下会触发常ConstError，异常提示信息为
+    [常量错误]: {msg}."""
 
     def __init__(self, msg=''):
         msg = f'[常量错误]: {msg}.'
